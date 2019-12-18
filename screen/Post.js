@@ -18,7 +18,7 @@ class Post extends React.Component {
                 post: data.data,
                 loading: false,
             });
-        });
+        }).catch(err => alert('no connection'));
     }
 
     addPost = () => {
