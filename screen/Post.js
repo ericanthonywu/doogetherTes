@@ -16,9 +16,13 @@ class Post extends React.Component {
         Axios.get(`https://jsonplaceholder.typicode.com/posts`).then(data => {
             this.setState({
                 post: data.data,
-                loading: false,
             });
-        }).catch(err => alert('no connection'));
+        }).catch(err => alert('no connection'))
+            .finally(() =>
+                this.setState({
+                    loading: false,
+                }))
+        ;
     }
 
     addPost = () => {
@@ -66,6 +70,7 @@ class Post extends React.Component {
                         this.state.loading ?
                             <Text center>Loading Post . . .</Text>
                             :
+                            this.state.post.length ?
                             this.state.post.map(data =>
                                 <Block center width={'50%'}>
                                     <Block style={{
@@ -77,6 +82,8 @@ class Post extends React.Component {
                                     </Block>
                                 </Block>,
                             )
+                                :
+                                <Text center>No Post Available :(</Text>
                     }
                 </ScrollView>
             </>
